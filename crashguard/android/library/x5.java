@@ -1,0 +1,106 @@
+package crashguard.android.library;
+
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.os.Build;
+import android.os.Bundle;
+import androidx.annotation.NonNull;
+import java.lang.ref.WeakReference;
+
+/* JADX INFO: Access modifiers changed from: package-private */
+/* loaded from: classes6.dex */
+public final class x5 implements LocationListener {
+
+    /* renamed from: a  reason: collision with root package name */
+    private final WeakReference<Context> f39119a;
+
+    /* renamed from: b  reason: collision with root package name */
+    private final b6 f39120b;
+
+    /* renamed from: c  reason: collision with root package name */
+    private final i5 f39121c;
+
+    /* renamed from: d  reason: collision with root package name */
+    private int f39122d = 0;
+
+    /* JADX INFO: Access modifiers changed from: package-private */
+    public x5(Context context, b6 b6Var, i5 i5Var) {
+        this.f39121c = i5Var;
+        this.f39120b = b6Var;
+        this.f39119a = new WeakReference<>(context);
+    }
+
+    /* JADX INFO: Access modifiers changed from: private */
+    public void b(Location location) {
+        boolean z3;
+        boolean z4;
+        float f4;
+        int i4 = this.f39122d;
+        try {
+            if (i4 > 4) {
+                h2.c(this.f39119a.get()).h(this);
+                return;
+            }
+            this.f39122d = i4 + 1;
+            boolean equals = location.getProvider().equals("network");
+            if (location.getAccuracy() <= 2500.0f) {
+                z3 = true;
+            } else {
+                z3 = false;
+            }
+            boolean equals2 = location.getProvider().equals("gps");
+            if (location.getAccuracy() <= 20.0f) {
+                z4 = true;
+            } else {
+                z4 = false;
+            }
+            if ((equals2 && z4) || (equals && z3)) {
+                Context context = this.f39119a.get();
+                h2.c(context).h(this);
+                new l2(context).c(location);
+                if (Build.VERSION.SDK_INT > 25) {
+                    f4 = location.getVerticalAccuracyMeters();
+                } else {
+                    f4 = 0.0f;
+                }
+                this.f39121c.d(location.getTime());
+                this.f39121c.c(location.getBearing());
+                this.f39121c.k(location.getSpeed());
+                this.f39121c.h(location.getAccuracy());
+                this.f39121c.m(f4);
+                this.f39121c.b(location.getLatitude());
+                this.f39121c.g(location.getLongitude());
+                this.f39121c.i(location.getProvider());
+                this.f39120b.d(this.f39121c);
+            }
+        } catch (Throwable unused) {
+        }
+    }
+
+    @Override // android.location.LocationListener
+    public final void onLocationChanged(@NonNull final Location location) {
+        p1.a(new Runnable() { // from class: crashguard.android.library.n5
+            @Override // java.lang.Runnable
+            public final void run() {
+                x5.this.b(location);
+            }
+        });
+    }
+
+    @Override // android.location.LocationListener
+    public final void onFlushComplete(int i4) {
+    }
+
+    @Override // android.location.LocationListener
+    public final void onProviderDisabled(@NonNull String str) {
+    }
+
+    @Override // android.location.LocationListener
+    public final void onProviderEnabled(@NonNull String str) {
+    }
+
+    @Override // android.location.LocationListener
+    public final void onStatusChanged(String str, int i4, Bundle bundle) {
+    }
+}
