@@ -1,12 +1,12 @@
 # macro-reverse-engineering
 
-https://macrodroid.en.uptodown.com/android
- 
-Input
-Files
-C:\macrodroid-5-38-16.apk
-Code sources
-Count: 9
+https://macrodroid.en.uptodown.com/android\
+
+Input\
+Files\
+C:\macrodroid-5-38-16.apk\
+Code sources\
+Count: 9\
 classes.dex
 classes2.dex
 classes3.dex
