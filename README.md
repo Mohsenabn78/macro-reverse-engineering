@@ -2,10 +2,9 @@
 
 https://macrodroid.en.uptodown.com/android
 
-Input\
-Files\
+Input Files:\
 C:\macrodroid-5-38-16.apk\
-Code sources\
+Code sources:\
 Count: 9\
 classes.dex\
 classes2.dex\
